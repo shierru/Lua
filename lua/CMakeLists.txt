@@ -81,7 +81,6 @@ if(NOT BUILD_SHARED_LIBS OR NOT LUA_ENABLE_SHARED)
     add_library(Lua::Library ALIAS lua_static)
 endif()
 
-
 if(UNIX)
     if(NOT EMSCRIPTEN)
         find_library(LIBM m)
@@ -110,32 +109,6 @@ elseif(Win32)
     target_compile_options(lua_internal
 		INTERFACE "/Wall"
 	)
-endif()
-
-if(LUA_BUILD_BINARY)
-    include(CheckIncludeFile)
-    CHECK_INCLUDE_FILE("readline/readline.h" HAVE_READLINE_READLINE_H)
-
-    add_executable(lua "src/lua.c")
-    # Can not use lua_shared because some symbols are not exported
-    target_link_libraries(lua PRIVATE lua_static)
-    set_target_properties(lua PROPERTIES 
-        RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}
-    )
-    if (HAVE_READLINE_READLINE_H)
-        target_compile_definitions(lua PRIVATE "LUA_USE_READLINE")
-        target_link_libraries(lua PUBLIC readline)
-    endif()
-    list(APPEND TARGETS_TO_INSTALL lua)
-endif()
-
-if(LUA_BUILD_COMPILER)
-    add_executable(luac "src/luac.c")
-    target_link_libraries(luac PRIVATE lua_static)
-    set_target_properties(luac PROPERTIES 
-        RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}
-    )
-    list(APPEND TARGETS_TO_INSTALL luac)
 endif()
 
 install(TARGETS ${TARGETS_TO_INSTALL}
