@@ -39,13 +39,3 @@ jobs:
         working-directory: ${{github.workspace}}/build
         shell: bash
         run: cmake --install . --prefix $GITHUB_WORKSPACE/sysroot
-
-      # - name: Configure Test of CMake Package
-      #   working-directory: ${{github.workspace}}
-      #   shell: bash
-      #   run: emcmake cmake -S $GITHUB_WORKSPACE/lua/tests-config-package -B build-pkg-test -DCMAKE_PREFIX_PATH=$GITHUB_WORKSPACE/sysroot
-
-      # - name: Build Test of CMake Package
-      #   working-directory: ${{github.workspace}}
-      #   shell: bash
-      #   run: cmake --build build-pkg-test
