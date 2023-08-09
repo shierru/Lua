@@ -25,8 +25,8 @@ else()
     option(LUA_BUILD_COMPILER "Build luac compiler" ON)
 endif()
 
-add_subdirectory(lua-${PROJECT_VERSION})
+add_subdirectory(lua)
 
 if(LUA_ENABLE_TESTING)
-    add_test(NAME lua-testsuite COMMAND lua -e "_U=true" all.lua WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lua-${CMAKE_PROJECT_VERSION}-tests)
+    add_test(NAME lua-testsuite COMMAND lua -e "_U=true" all.lua WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lua/tests)
 endif()
